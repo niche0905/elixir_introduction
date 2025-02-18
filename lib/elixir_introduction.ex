@@ -13,11 +13,15 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    list = [1, 2, 3]
+    list = [1, 2, [3, 4, 5]]
     [a, b, c] = list
-    IO.puts(a)  # 1
-    IO.puts(b)  # 2
-    IO.puts(c)  # 3
-    # 패턴 매칭 리스트의 경우
+    [d, e, f] = c
+    IO.puts(a)
+    IO.puts(b)
+    IO.puts(c)
+    IO.puts(d)
+    IO.puts(e)
+    IO.puts(f)
+    # 더 복잡한 경우 패턴 매칭 양상
   end
 end
