@@ -13,15 +13,12 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    list = [1, 2, 3]
-    [a, 2, b] = list
-    IO.puts(a)  # 1
-    IO.puts(b)  # 3
-    # 패턴 매칭 사례
-
-    # 아래의 경우 패턴 매칭 실패
-    # list [1, 2, 3]
-    # [a, 1, b] = list error
-    # 좌변과 우변이 매칭되지 않으므로
+    a = [1, 2, 3]       # O
+    b = 4               # O
+    4 = c               # X
+    [d, e] = [1, 2, 3]  # X
+    f = [[1, 2, 3]]     # O
+    [g] = [[1, 2, 3]]   # O
+    [[h]] = [[1, 2, 3]] # O
   end
 end
