@@ -13,10 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    1234
-    0xcafe
-    0o124
-    0b110011
-    100_000_000_000_000_000_000_000_000_000_000_000
+    0.0
+    0.234
+    0.3141592e1
   end
 end
