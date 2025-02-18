@@ -13,12 +13,10 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    a = [1, 2, 3]       # O
-    b = 4               # O
-    4 = c               # X
-    [d, e] = [1, 2, 3]  # X
-    f = [[1, 2, 3]]     # O
-    [g] = [[1, 2, 3]]   # O
-    [[h]] = [[1, 2, 3]] # O
+    [a, _, _] = [1, 2, 3]
+    IO.puts(a)  # 1
+    [b, "cat", _] = ["holse", "cat", "dog"]
+    IO.puts(b)  # "hosle"
+    # _를 와일드카드로 사용하기
   end
 end
