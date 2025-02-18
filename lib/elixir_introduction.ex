@@ -13,8 +13,12 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    0.0
-    0.234
-    0.3141592e1
+    :fred
+    :is_binary?
+    :var@2
+    :<>
+    :===
+    :"func/3"
+    :"long john silver"
   end
 end
