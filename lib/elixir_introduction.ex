@@ -13,12 +13,7 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    :fred
-    :is_binary?
-    :var@2
-    :<>
-    :===
-    :"func/3"
-    :"long john silver"
+    1..100    # 1~100 [1, 100] 모두 포함
+    1..100//2 # 1~100인데 2씩 증가해 1, 3, 5, 7, ... 이 된다
   end
 end
