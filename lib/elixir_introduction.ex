@@ -13,8 +13,9 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    {1, 2}
-    {:ok, 42, "next"}
-    {:error, :enoent}
+    {status, count, action} = {:ok, 42, "next"}
+    IO.puts(status) # :ok
+    IO.puts(count)  # 42
+    IO.puts(action) # "next"
   end
 end
