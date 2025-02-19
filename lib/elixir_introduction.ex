@@ -13,12 +13,16 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 바이너리
-    bin = <<1, 2>>
-    IO.puts(byte_size(bin))  # 2
+    # 날짜와 시간
+    d1 = Date.new(2018, 12, 25)
+    IO.puts(d1) # {:ok, ~D[2018-12-25]}
 
-    bin2 = <<3 :: size(2), 5 :: size(4), 1 :: size(2)>>
-    IO.puts(bin2) # 11010101
-    IO.puts(byte_size(bin2))  # 1
+    {:ok, d1} = Date.new(2018, 12, 25)
+    d2 = ~D[2018-12-25]
+    IO.puts(d1 == d2) # true
+
+    IO.puts(Date.day_of_week(d1)) # 2
+    IO.puts(Date.add(d1, 7))  # ~D[2019-01-01]
+    inspect(d1, struct: false)
   end
 end
