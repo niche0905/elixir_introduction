@@ -13,9 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    Regex.run(~r{[aeiou]}, "caterpillar")
-    Regex.scan(~r{[aeiou]}, "caterpillar")
-    Regex.split(~r{[aeiou]}, "caterpillar")
-    Regex.replace(~r{[aeiou]}, "caterpillar", "*")
+    {1, 2}
+    {:ok, 42, "next"}
+    {:error, :enoent}
   end
 end
