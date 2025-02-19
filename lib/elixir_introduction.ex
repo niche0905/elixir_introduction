@@ -13,7 +13,9 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    1..100    # 1~100 [1, 100] 모두 포함
-    1..100//2 # 1~100인데 2씩 증가해 1, 3, 5, 7, ... 이 된다
+    Regex.run(~r{[aeiou]}, "caterpillar")
+    Regex.scan(~r{[aeiou]}, "caterpillar")
+    Regex.split(~r{[aeiou]}, "caterpillar")
+    Regex.replace(~r{[aeiou]}, "caterpillar", "*")
   end
 end
