@@ -13,11 +13,9 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 식별자
-    name
-    _age
-    _42
-    wtf?
-    number_of_date
+    # 참 거짓
+    true  # :true false와 nil이 아닌 모든 값은 true
+    false
+    nil
   end
 end
