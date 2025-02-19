@@ -13,16 +13,12 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 맵 접근
-    status = %{"AL" => "Alabama", "WI" => "Wisconsin"}
-    IO.puts(status["AL"]) # "Alabama"
-    IO.puts(status["TX"]) # nil (null)
+    # 바이너리
+    bin = <<1, 2>>
+    IO.puts(byte_size(bin))  # 2
 
-    responses = %{{:error, :enoent} => :fatal, {:error, :busy} => :retry}
-    IO.puts(responses[{:error, :busy}]) # :retry
-
-    colors = %{:red => 0xff0000, :green => 0x00ff00, :blue => 0x0000ff}
-    IO.puts(colors[:red]) # 16711680
-    IO.puts(colors.green) # 65280 <- 아톰의 경우 .으로 사용할 수도 있다
+    bin2 = <<3 :: size(2), 5 :: size(4), 1 :: size(2)>>
+    IO.puts(bin2) # 11010101
+    IO.puts(byte_size(bin2))  # 1
   end
 end
