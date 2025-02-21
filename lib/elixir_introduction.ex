@@ -13,10 +13,32 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # with 패턴 매칭
-    result1 = with [a | _] <- [1, 2, 3], do: a
-    IO.puts(result1)  # 1 (2, 3은 _로 버려짐)
-    result2 = with [b | _] <- nil, do: b
-    IO.puts(result2)  # nil (패턴 매칭에 실패하여 MatchError 대신 매칭에 실패한 우변의 값 리턴)
+    # with 사용 시 주의사항
+    mean = with # 이렇게 사용하면 안된다
+            count = Enum.count(values),
+            sum   = Enum.sum(values)
+           do
+            sum / count
+           end
+
+    # 이렇게 사용해야 한다다
+    mean = with count = Enum.count(values), # 첫 번째 파라미터를 with와 같은 줄에
+            sum   = Enum.sum(values)
+           do
+            sum / count
+           end
+
+    # 괄호를 사용해도 좋다
+    mean = with(
+            count = Enum.count(values), # 첫 번째 파라미터를 with와 같은 줄에
+            sum   = Enum.sum(values)
+           ) do
+            sum / count
+           end
+
+    # do를 단축 문법으로 사용하는 방법이다
+    mean = with count = Enum.count(values),
+            sum   = Enum.sum(values)
+           do: sum / count
   end
 end
