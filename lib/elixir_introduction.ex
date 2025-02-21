@@ -13,14 +13,10 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # with 표현식
-    lp = with content = "fefefe",  # 임시 변수가 with 스코프 안에서만 볼 수 있게
-              IO.puts(content)
-         do
-              "Name: #{content}"
-         end
-
-    IO.puts(lp)
-    # IO.puts(content)  # 해당 content를 찾을 수 없을 것임
+    # with 패턴 매칭
+    result1 = with [a | _] <- [1, 2, 3], do: a
+    IO.puts(result1)  # 1 (2, 3은 _로 버려짐)
+    result2 = with [b | _] <- nil, do: b
+    IO.puts(result2)  # nil (패턴 매칭에 실패하여 MatchError 대신 매칭에 실패한 우변의 값 리턴)
   end
 end
