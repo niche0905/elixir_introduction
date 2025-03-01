@@ -13,8 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 함수
-    my_sum = fn (a, b) -> a + b end
-    IO.puts(my_sum.(1, 2))
+    # 함수 정의 시 () 필요 없음음
+    greet = fn -> IO.puts "Hello" end
+    greet.()
   end
 end
