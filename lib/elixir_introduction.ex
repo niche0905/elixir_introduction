@@ -13,8 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 함수 정의 시 () 필요 없음음
-    greet = fn -> IO.puts "Hello" end
-    greet.()
+    # 함수에서 패턴 매칭
+    swap = fn {a, b} -> {b, a} end
+    swap.({6, 8})       # {8, 6}
   end
 end
