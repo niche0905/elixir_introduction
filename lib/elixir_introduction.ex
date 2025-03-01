@@ -13,8 +13,11 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    fun1 = fn -> fn -> "Hello" end end
-    fun1.()     # #Function
-    fun1.().()  # "Hello"
+    fun1 = fn ->
+              fn ->
+                 "Hello"
+              end
+           end
+
   end
 end
