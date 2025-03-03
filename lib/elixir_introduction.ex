@@ -13,18 +13,11 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    mr_valim = Greeter.for("Jose", "Oi!")
-
-    IO.puts(mr_valim.("Jose"))
-    IO.puts(mr_valim.("Dave"))
-  end
-end
-
-defmodule Greeter do
-  def for(name, greeting) do
-    fn
-      (^name) -> "#{greeting} #{name}"
-      (_) -> "I don't know you"
-    end
+    add_one = &(&1 + 1)
+    IO.puts(add_one.(44))
+    square = &(&1 * &1)
+    IO.puts(square.(8))
+    speak = &(IO.puts(&1))
+    speak.("Hello")
   end
 end
