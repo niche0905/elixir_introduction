@@ -13,11 +13,11 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    s = &"bacon and #{&1}"
-    IO.puts(s.("custard"))
-
-    match_end = &~r/.*#{&1}$/
-    IO.puts("cat" =~ match_end.("t"))
-    IO.puts("cat" =~ match_end.("!"))
+    l = &length/1
+    IO.puts(l.([1, 3, 5, 7]))
+    len = &Enum.count/1
+    IO.puts(len.([1, 2, 3, 4]))
+    m = &Kernel.min/2
+    IO.puts(m.(99, 88))
   end
 end
