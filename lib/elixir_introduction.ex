@@ -13,7 +13,7 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    rnd = &(Float.round(&1, &2))  # &Float.round/2
-    rnd = &(Float.round(&2, &1))  # #Function<...>
+    divrem = &{div(&1, &2), rem(&1, &2)}
+    IO.puts(divrem.(13, 5)) # {2, 3}
   end
 end
