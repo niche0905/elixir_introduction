@@ -13,11 +13,7 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    add_one = &(&1 + 1)
-    IO.puts(add_one.(44))
-    square = &(&1 * &1)
-    IO.puts(square.(8))
-    speak = &(IO.puts(&1))
-    speak.("Hello")
+    rnd = &(Float.round(&1, &2))  # &Float.round/2
+    rnd = &(Float.round(&2, &1))  # #Function<...>
   end
 end
