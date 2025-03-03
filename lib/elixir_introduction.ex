@@ -13,9 +13,18 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    list = [1, 3, 5, 7, 9]
-    Enum.map(list, fn elem -> elem * 2 end)     # [2, 6, 10, 14, 18]
-    Enum.map(list, fn elem -> elem * elem end)  # [1, 9, 25, 49, 81]
-    Enum.map(list, fn elem -> elem > 6 end)     # [false, false, false, true, true]
+    mr_valim = Greeter.for("Jose", "Oi!")
+
+    IO.puts(mr_valim.("Jose"))
+    IO.puts(mr_valim.("Dave"))
+  end
+end
+
+defmodule Greeter do
+  def for(name, greeting) do
+    fn
+      (^name) -> "#{greeting} #{name}"
+      (_) -> "I don't know you"
+    end
   end
 end
