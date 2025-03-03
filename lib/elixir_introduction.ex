@@ -13,6 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    fun1 = fn -> (fn -> "Hello" end) end
+    greeter = fn name -> (fn -> "Hello #{name}" end) end
+    dave_greeter = greeter.("Dave")
+    dave_greeter.() # "Hello Dave"
   end
 end
