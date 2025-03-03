@@ -13,15 +13,8 @@ defmodule ElixirIntroduction do
 
   """
   def hello do
-    # 다음 코드를 & 표기법을 사용하도록 고쳐보라
-
-    Enum.map([1, 2, 3, 4], fn x -> x + 2 end)
-    # =>
-    Enum.map([1, 2, 3, 4], &(&1 + 2))
-
-    Enum.each([1, 2, 3, 4], fn x -> IO.inspect(x) end)
-    # =>
-    Enum.each([1, 2, 3, 4], &IO.inspect/1)
-
+    # 함수
+    # 데이터를 변경하는 것을 수행하는 함수는 엘릭서의 핵심이 된다
+    # 변수에 바인딩하여 사용하는 익명 함수를 지금까지 다루어보았다
   end
 end
