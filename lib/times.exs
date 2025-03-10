@@ -5,4 +5,7 @@ defmodule Times do
   def double(n) do
     n * 2
   end
+  # 기명 함수의 식별은
+  # 함수의 이름과 파라미터의 개수(아리티)로 식별한다
+  # 관련이 없는 두 함수에는 같은 이름을 붙이지 않는 편이 좋다
 end
