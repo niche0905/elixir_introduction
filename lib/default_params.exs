@@ -9,6 +9,10 @@ defmodule Example do
   def func(p1, p2 \\ 2, p3 \\ 3, p4) do
     IO.inspect([p1, p2, p3, p4])
   end
+  # 오류 코드
+  def func(p1, p2) do
+    IO.inspect([p1, p2])
+  end
 
   # Example.func("a", "b")
   # => ["a", 2, 3, "b"]
