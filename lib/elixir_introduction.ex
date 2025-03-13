@@ -1,21 +1,20 @@
 defmodule ElixirIntroduction do
   def hello do
-    # |> 파이프라인 연산자
-    # 파이프 연산자는 코드를 명세와 닮은 꼴로 쓸수 있게 해준다는 것이다
-    # - 고객 명단을 구한다
-    # - 고객들이 주문한 내역을 구한다
-    # - 주문 내역에 대한 세금을 계산한다
-    # - 세금을 신고한다
-    # 라는 명세를 코드로 바꾸면
-    DB.find_customers
-    |> Orders.for_customers
-    |> sales_tax(2018)
-    |> prepare_filing
-    # 항목 사이에 |>만 넣고 함수로 구현하기만 하면 된다
-
-    # 프로그래밍은 데이터를 변형하는 작업이며
-    # |> 연산자는 변형을 명시적으로 하게 해준다
-    # 책의 원서에서 언어를 한마디로 소개하는
-    # "Functional |> Concurrent |> Pragmatic |> Fun" 의 의미를 이해할 수 있을 것이다
+    # 모듈은 당신이 정의한 것들에 네임스페이스를 만들어준다
+    # 모듈은 함수만이 아니라 매크로, 구조체, 프로토콜, 다른 모듈까지도 포함할 수 있다
+    # 모듈 안에 정의된 함수를 모듈 밖에서 참조하려면 함수명 앞에 모듈 이름을 붙여야 한다
   end
 end
+
+defmodule Mod do
+  def func1 do
+    IO.puts("in func1")
+  end
+  def fucn2 do
+    func1()
+    IO.puts("in func2")
+  end
+end
+
+Mod.func1()
+Mod.fucn2()
