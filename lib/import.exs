@@ -14,7 +14,7 @@ defmodule Example do
 end
 
 # import의 전체 문법은 다음과 같다
-import Module [, only:|except: ]
+# import Module [, only:|except: ]
 # only: 나 except: 뒤에 함수명: 인자 쌍의 리스트를 넣어주면 된다
 # 가능한 적은 스코프에서 import를 사용하고
 # only:를 이용해 필요한 함수만 임포트하기를 권장한다
