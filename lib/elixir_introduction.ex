@@ -16,5 +16,21 @@ defmodule Mod do
   end
 end
 
-Mod.func1()
-Mod.fucn2()
+# 모듈 중첩
+
+defmodule Outer do
+  defmodule Inner do
+    def inner_func do
+      IO.puts("inner_func call")
+    end
+  end
+
+  def outer_func do
+    IO.puts("outer_func call")
+    Inner.inner_func()
+    # or Outer.Inner.inner_func()
+  end
+end
+
+Outer.outer_func()
+Outer.Inner.inner_func()
