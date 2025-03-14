@@ -4,4 +4,10 @@ defmodule MyList do
   # 파라미터 식별자 앞에 언더스코어(_)를 붙여 사용하지 않을 변수를 설정해야 경고가 안생긴다
   def len([]), do: 0
   def len([ _head | tail ]), do: 1 + len(tail)
+
+  # 리스트 재귀 함수
+  # 원소 제곱
+  def square([]), do: []
+  def square([head | tail]), do: [head*head | square(tail)]
+
 end
