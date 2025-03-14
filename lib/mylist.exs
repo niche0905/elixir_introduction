@@ -14,4 +14,14 @@ defmodule MyList do
   def add_1([]), do: []
   def add_1([head | tail]), do: [head + 1 | add_1(tail)]
 
+  # map 함수
+  def map([], _func), do: []
+  def map([head | tail], func), do: [func.(head) | map(tail, func)]
+
+  # iex(1)> MyList.map([1,2,3,4], fn (n) -> n+1 end)
+  # [2, 3, 4, 5]
+  # iex(2)> MyList.map([1,2,3,4], &(&1 + 1))
+  # [2, 3, 4, 5]
+  # iex(3)> MyList.map([1,2,3,4], fn (n) -> n > 2 end)
+  # [false, false, true, true]
 end
