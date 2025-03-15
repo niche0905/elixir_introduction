@@ -37,4 +37,36 @@ defmodule MyList do
   # 15
   # iex(2)> MyList.reduce([1,2,3,4,5], 1, &(&1 * &2))
   # 120
+
+  # 연습문제
+
+  # 리스트와 함수를 받는 mapsum 함수를 만들어보자
+  # 이 함수는 리스트의 각 요소에 함수를 적용한 뒤, 그 결과를 모두 더한 값을 반환한다
+  # 호출 예는 다음과 같다
+  # iex> MyList.map([1, 2, 3], &(&1 * &1))
+  # 14
+
+  def mapsum([], _func), do: 0
+  def mapsum([head | tail], func), do: func.(head) + mapsum(tail, func)
+
+  # max(list) 함수를 구현해보자
+  # 이 함수는 리스트에서 가장 큰 값을 반환한다
+  def max([]), do: 0
+  def max([head | tail]) do
+    max_el = max(tail)
+    if (head > max_el) do
+      head
+    else
+      max_el
+    end
+  end
+
+  # 엘릭서에서 작은따옴표로 둘러싸인 문자열은 사실 각 문자 코드들의 리스트다 (문자 리스트)
+  # 리스트의 각 요소에 n을 더하는 caesar(list, n) 함수를 만들어보자
+  # 만약 더한 문자 코드의 값이 'z'를 넘어가면 'a'로 돌아가 이어서 세어주자
+
+  def caesar([], _n), do: []
+  def caesar([head | tail], n), do: [rem((head + n - ?a), 26) + ?a | caesar(tail, n)]
+  # ?연산자가 유니코드 코드 포인터 (우리가 생각하는 아스키 값)을 알 수 있게 해주는 연산자이다
+
 end
