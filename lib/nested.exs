@@ -55,3 +55,13 @@ end
 #   severity: 1
 # }
 # get_in과 get_and_update_in 등 다양한 함수들이 있다
+
+
+# 구조체가 아닌 경우 함수 사용법은 다음과 같다
+# 맵이나 키워드 리스트의 경우 아톰 키를 사용해서 접근할 수도 있다
+# iex> report = %{owner: %{name: "Dave", company: "Pragmatic"}, severity: 1}
+# %{owner: %{name: "Dave", company: "Pragmatic"}, severity: 1}
+# iex> put_in(report[:owner][:company], "PragProg")
+# %{owner: %{name: "Dave", company: "PragProg"}, severity: 1}
+# iex> update_in(report[:owner][:name], &("Mr. " <> &1))
+# %{owner: %{name: "Mr. Dave", company: "Pragmatic"}, severity: 1}
