@@ -24,4 +24,17 @@ defmodule MyList do
   # [2, 3, 4, 5]
   # iex(3)> MyList.map([1,2,3,4], fn (n) -> n > 2 end)
   # [false, false, true, true]
+
+  # reduce 함수
+  def reduce([], value, _) do
+    value
+  end
+  def reduce([head | tail], value, func) do
+    reduce(tail, func.(head, value), func)
+  end
+
+  # iex(1)> MyList.reduce([1,2,3,4,5], 0, &(&1 + &2))
+  # 15
+  # iex(2)> MyList.reduce([1,2,3,4,5], 1, &(&1 * &2))
+  # 120
 end
