@@ -44,3 +44,14 @@ state
 # 잘못된 방식
 %{ item => :ok } = %{ 1 => :ok, 2 => :error}
 # (CompileError) 변수에 키값을 담을 수는 없다
+
+
+data = %{ name: "Dave", state: "TX", likes: "Elixir" }
+# %{  likes: "Elixir", name: "Dave", state: "TX" }
+
+# 변수에 저장된 키로는 매칭 할 수 있다
+for key <- [ :name, :likes] do
+  %{ ^key => value } = data
+  value
+end
+# ["Dave", "Elixir"]
