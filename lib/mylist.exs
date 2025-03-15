@@ -63,11 +63,12 @@ defmodule MyList do
     end
   end
 
+  def gpt_max([]), do: raise(ArgumentError, message: "Cannot find max in an empty list")
   def gpt_max([single]), do: single
-  def gpt_max([head | tail]), do: max(head, max(max(tail)))
+  def gpt_max([head | tail]), do: gpt_max(head, gpt_max(tail))
 
-  defp max(a, b) when a > b, do: a
-  defp max(_, b), do: b
+  defp gpt_max(a, b) when a > b, do: a
+  defp gpt_max(_, b), do: b
 
   # 엘릭서에서 작은따옴표로 둘러싸인 문자열은 사실 각 문자 코드들의 리스트다 (문자 리스트)
   # 리스트의 각 요소에 n을 더하는 caesar(list, n) 함수를 만들어보자
@@ -77,8 +78,8 @@ defmodule MyList do
   def caesar([head | tail], n), do: [rem((head + n - ?a), 26) + ?a | caesar(tail, n)]
   # ?연산자가 유니코드 코드 포인터 (우리가 생각하는 아스키 값)을 알 수 있게 해주는 연산자이다
 
-  def caesar([], _n), do: []
-  def caesar([head | tail], n), do: [shift_char(head, n) | caesar(tail, n)]
+  def gpt_caesar([], _n), do: []
+  def gpt_caesar([head | tail], n), do: [shift_char(head, n) | caesar(tail, n)]
 
   defp shift_char(char, shift) do
     rem((char + shift - ?a), 26) + ?a
