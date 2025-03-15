@@ -34,3 +34,13 @@ people |> Enum.each(&HotelRoom.book/1)
 # Need regular bed for Dopey
 # Need extra-long bed for Shaquille
 # Need low shower controls for Sneezy
+
+%{ 2 => state} = %{ 1 => :ok, 2 => :error}
+# %{ 1 => :ok, 2 => :error}
+
+state
+# :error
+
+# 잘못된 방식
+%{ item => :ok } = %{ 1 => :ok, 2 => :error}
+# (CompileError) 변수에 키값을 담을 수는 없다
