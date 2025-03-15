@@ -49,6 +49,8 @@ defmodule MyList do
   def mapsum([], _func), do: 0
   def mapsum([head | tail], func), do: func.(head) + mapsum(tail, func)
 
+  def gpt_mapsum(list, func), do: reduce(list, 0, fn x, acc -> acc + func.(x) end)
+
   # max(list) 함수를 구현해보자
   # 이 함수는 리스트에서 가장 큰 값을 반환한다
   def max([]), do: 0
@@ -61,6 +63,12 @@ defmodule MyList do
     end
   end
 
+  def gpt_max([single]), do: single
+  def gpt_max([head | tail]), do: max(head, max(max(tail)))
+
+  defp max(a, b) when a > b, do: a
+  defp max(_, b), do: b
+
   # 엘릭서에서 작은따옴표로 둘러싸인 문자열은 사실 각 문자 코드들의 리스트다 (문자 리스트)
   # 리스트의 각 요소에 n을 더하는 caesar(list, n) 함수를 만들어보자
   # 만약 더한 문자 코드의 값이 'z'를 넘어가면 'a'로 돌아가 이어서 세어주자
@@ -68,5 +76,12 @@ defmodule MyList do
   def caesar([], _n), do: []
   def caesar([head | tail], n), do: [rem((head + n - ?a), 26) + ?a | caesar(tail, n)]
   # ?연산자가 유니코드 코드 포인터 (우리가 생각하는 아스키 값)을 알 수 있게 해주는 연산자이다
+
+  def caesar([], _n), do: []
+  def caesar([head | tail], n), do: [shift_char(head, n) | caesar(tail, n)]
+
+  defp shift_char(char, shift) do
+    rem((char + shift - ?a), 26) + ?a
+  end
 
 end
