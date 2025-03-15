@@ -85,4 +85,12 @@ defmodule MyList do
     rem((char + shift - ?a), 26) + ?a
   end
 
+  # 연습 문제
+  # MyList.span(from, to) 함수를 만들어보자
+  # 이 함수는 from부터 to까지의 숫자를 리스트로 변환한다
+
+  def span(from, to) when from == to, do: [from] # (from, from) ??
+  def span(from, to) when from > to, do: [from | span(from - 1, to)]
+  def span(from, to), do: [from | span(from + 1, to)]
+
 end
