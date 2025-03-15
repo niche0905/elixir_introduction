@@ -10,3 +10,26 @@ defmodule Subsciber do
 
   defstruct name: "", paid: false, over_18: true
 end
+
+s1 = %Subsciber{}
+# %Subsciber{name: "", paid: false, over_18: true}
+s2 = %Subsciber{ name: "Dave" }
+# %Subsciber{name: "Dave", paid: false, over_18: true}
+s3 = %Subsciber{ name: "Mary", paid: true }
+# %Subsciber{name: "Mary", paid: true, over_18: true}
+
+# 구조체는 맵을 만들 때와 똑같은 문법으로 만든다
+# %와 {} 사이에 모듈(구조체)의 이름을 넣기만 하면 된다
+# 구조체 내의 필드에 접근할 때는 온점(.)이나 패턴 매칭을 사용하면 된다
+
+s3.name
+# "Mary"
+%Subsciber{name: a_name} = s3
+# %Subsciber{name: "Mary", paid: true, over_18: true}
+a_name
+# "Mary"
+
+# 구조체를 수정하는 문법도 맵을 수정하는 문법처럼 |를 사용한다
+
+s4 = %Subsciber{ s3 | name: "Marie" }
+# %Subsciber{name: "Marie", paid: true, over_18: true}
