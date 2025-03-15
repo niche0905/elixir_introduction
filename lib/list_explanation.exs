@@ -33,4 +33,9 @@ defmodule ListExplanation do
   # => [{:name, "Dave"}, {:likes, "Programming"}]
   kw = List.keyreplace(kw, :name, 0, {:first_name, "Dave"})
   # => [{:first_name, "Dave"}, {likes: "Programming"}]
+
+  # 리스트
+  # 리스트는 연속된 값을 다룰 때 자연스럽게 사용하게 되는 자료구조 (컬렉션) 이다
+  # 데이터를 파싱할 때, 값의 컬랙션을 다룰 때, 연속적인 함수 호출의 결과를 기록할 때 등에 리스트를 사용한다
+  # 리스트는 익숙해질 때까지 시간을 들일 가치가 있다
 end
