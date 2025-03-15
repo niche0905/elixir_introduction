@@ -37,4 +37,25 @@ defmodule MapExplanation do
   # 맵은 랜덤 액세스가 가능한 키-값 자료구조로, 크기와 관계없이 좋은 성능을 낸다
   # 맵 모듈의 API를 사용할 수 있다
 
+  person = %{ name: "Dave", height: 1.88 }
+
+  # 맵의 구조를 분해
+  # 맵에 :name이라는 키가 있는가?
+  %{ name: a_name } = person
+  # %{height: 1.88, name: "Dave"}
+  a_name
+  # "Dave"
+
+  # 맵에 :name과 :height 키가 모두 있는가?
+  %{ name: _, height: _ } = person
+  # %{height: 1.88, name: "Dave"}
+
+  # :name 키의 값이 "Dave"인가?
+  %{ name: "Dave" } = person
+  # %{height: 1.88, name: "Dave"}
+
+  # 맵에 :name과 :weight 키가 모두 있는가?
+  %{ name: _, weight: _ } = person
+  # ** (MatchError) weight라는 키가 없어서 패턴 매칭에 실패
+
 end
