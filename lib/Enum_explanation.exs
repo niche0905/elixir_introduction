@@ -39,6 +39,8 @@ Enum.reject(list, &Integer.is_even/1)
 Enum.sort(["there", "was", "a", "crooked", "man"])
 # ["a", "crooked", "man", "there", "was"]
 Enum.sort(["there", "was", "a", "crooked", "man"], &(String.length(&1) <= String.length(&2)))
+# 정렬을 안정적(Stable)하게 하기 위해선 < 대신 <=를 사용하면 된다
+# 위 예제는 Stable하다
 # ["a", "was", "man", "there", "crooked"]
 Enum.max(["there", "was", "a", "crooked", "man"])
 # "was"
