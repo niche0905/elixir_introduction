@@ -185,3 +185,155 @@ tail
 # ~c"cat"
 
 # 'cat의 head 값이 왜 c가 아니고 99인지는 head에는 99라는 정수가 들어가 있기 때문에 ([99]가 아닌 99이다) 99가 출력된다
+
+
+# 문자열
+# 큰따옴표 문자열은 바이너리다
+# 작은따옴표 문자열은 문자의 리스트로 저장되지만, 큰 따옴표 문자열은 연속된 바이트에 UTF-8 인코딩되어 저장된다
+# 이 방식은 메모리나 데이터 접근의 관점에서 분명 더 효율적이나, 겉으로 드러나지 않는 두 가지 의미를 더 지닌다
+# 먼저, UTF-8 문자는 한글자가 여러 바이트를 사용할 수 있기 때문에 바이너리의 크기와 문자열의 길이가 반드시 일치하지는 않는다
+dqs = "∂x/∂y"
+# "∂x/∂y"
+String.length(dqs)
+# 5
+byte_size(dqs)
+# 9
+String.at(dqs, 0)
+# "∂"
+String.codepoints(dqs)
+# ["∂", "x", "/", "∂", "y"]
+String.split(dqs, "/")
+# ["∂x", "∂y"]
+
+# 문자열을 표현할 떄 더 이상 문자 리스트가 아니므로 바이너리 문법도 함께 익혀하 한다
+
+# String 라이브러리
+# 엘릭서 라이브러리 문서에서 문자열 또는 바이너리라는 용어는 항상 큰따옴표 문자열을 의미한다
+# String 모듈에는 큰따옴표 문자열에 대해 사용할 수 있는 함수가 정의되어 있다
+
+# at(str, offset)
+# 0부터 시작해서 offset 번쨰 위치에 있는 자소를 반환한다
+# offset이 음수일 때는 문자열의 끝부터 센다(파이썬 같다)
+String.at("∂og", 0)
+# "∂"
+String.at("∂og", -1)
+# "g"
+
+# capitalize(str)
+# 문자열을 모두 소문자로 바뀐 뒤 첫번째 문자를 대문자로 바꾼다
+String.capitalize("ecole")
+# "Ecole"
+String.capitalize("iiiii")
+# "Iiiii"
+
+# codepoints(str)
+# 문자열의 코드포인트 리스트를 반환한다
+String.codepoints("Jose's ∂og")
+["J", "o", "s", "e", "'", "s", " ", "∂", "o", "g"]
+
+# downcase(str)
+# 문자열의 모든 문자를 소문자로 바꾼다
+String.downcase("ORSteD")
+# "orsted"
+
+# duplicate(str, n)
+# 문자열을 n번 복사해 반환한다
+String.duplicate("Ho! ", 3)
+# "Ho! Ho! Ho! "
+
+# ends_with?(str, suffix | [suffixes])
+# 문자열이 .suffix 또는 suffixes 중 하나로 끝나면 true를 반환한다
+String.ends_with?("string", ["elix", "stri", "ring"])
+# true
+
+# first(str)
+# 문자열의 첫 번째 자소를 반환한다
+String.first("∂og")
+# "∂"
+
+# graphemes(str)
+# 문자열의 자소 리스트를 반환한다
+# codepoints 함수와 비슷하지만 결합 문자 처리 방법이 다르다
+# codepoints 함수는 결합 문자를 구성하는 각 문자를 모두 나누어 반환한다
+String.codepoints("noe\u0308l")
+# ["n", "o", "e", "̈", "l"]
+String.graphemes("noe\u0308l")
+# ["n", "o", "ë", "l"]
+
+# jaro_distance(str1, str2)
+# 두 문자열의 유사도를 나타내는 0과 1 사이의 실수를 반환한다
+String.jaro_distance("jonathan", "jonathon")
+# 0.9166666666666666
+
+# last(str)
+# 문자열의 마지막 자소를 반환한다
+String.last("∂og")
+# "g"
+
+# length(str)
+# 문자열의 자소 개수를 반환한다
+String.length("∂x/∂y")
+# 5
+
+# myers_difference(str1, str2)
+# 문자열 하나를 다른 하나로 변환하려면 어떻게 바꾸어야 하는지를 리스트로 반환한다
+String.myers_difference("banana", "panama")
+# [del: "b", ins: "p", eq: "ana", del: "n", ins: "m", eq: "a"]
+
+# next_codepoints(str)
+# 문자열을 분리해 첫 번쨰 코드포인트와 나머지 문자열을 반환한다
+# 문자열이 비어 있으면 nil이 반환된다
+# 이 함수는 이터레이터를 구성하는 데 사용된다
+defmodule MyString do
+  def each(str, func), do: _each(String.next_codepoint(str), func)
+
+  defp _each({codepoint, rest}, func) do
+    func.(codepoint)
+    _each(String.next_codepoint(rest), func)
+  end
+
+  defp _each(nil, _), do: []
+end
+
+MyString.each("∂og", fn c -> IO.puts(c) end)
+# ∂
+# o
+# g
+
+# next_grapheme(str)
+# next_codepoint 함수와 마찬가지로 동작하지만 자소를 반환한다 (문자열의 끝에 도착하면 :no_grapheme를 반환한다)
+
+# pad_leading(str, new_length, padding \\ "")
+# 최소 길이 new_length의 새로운 문자열을 반환한다
+# str로 들어온 문자열이 오른쪽 정렬되고 padding 이 나머지 부분을 채운다
+String.pad_leading("cat", 5, ">")
+# ">>cat"
+
+# pad_trailing(str, new_length, padding \\ "")
+# 최소 길이 new_length의 새로운 문자열을 반환한다
+# str로 들어온 문자열이 왼쪽 정렬되고 padding 이 나머지 부분을 채운다
+String.pad_trailing("cat", 5)
+# "cat  "
+
+# printable?(str)
+# 문자열이 출력 가능한 문자만으로 이루어져 있으면 true를 반환한다
+String.printable?("Jose")
+# true
+String.printable?("\x00 a null")
+# false
+
+# replace(str, pattern, replacement, options \\ [global: true, insert_replaced: nil])
+# reverse(str)
+# slice(str,offset, len)
+# split(str, pattern \\ nil, options \\ [global: true])
+# starts_with?(str, prefix | [prefixes])
+# trim(str)
+# trim(str, character)
+# trim_leading(str)
+# trim_leading(str, character)
+# trim_trailing(str)
+# trim_trailing(str, character)
+# upcase(str)
+# valid?(str)
+
+# 이 외에도 더 다양한 API가 있다
