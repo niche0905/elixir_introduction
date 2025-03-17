@@ -39,3 +39,19 @@ defmodule StringProblem do
     end
   end
 end
+
+
+# 연습문제
+# 큰따옴표 문자열의 리스트를 받아 줄 때마다 각 문자열을 출력하는 함수를 작성해보아라
+# 단, 가장 긴 문자열의 폭에 맞추어 가운데 정렬되어야 한다
+# UTF 문자를 입력했을 때도 동작하도록 구현
+defmodule MyString do
+  def center(strings) when is_list(strings) do
+      max_length = strings |> Enum.map(&String.length/1) |> Enum.max()
+
+      for str <- strings do
+        padding = div(max_length - String.length(str), 2)
+        IO.puts(String.duplicate(" ", padding) <> str)
+      end
+  end
+end
