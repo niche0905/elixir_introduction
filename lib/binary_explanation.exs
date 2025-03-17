@@ -37,3 +37,41 @@ mix = << int :: binary, float :: binary >>
 # <<64, 9, 33, 249, 240, 27, 134, 110>>
 (1 + mantissa / :math.pow(2, 52)) * :math.pow(2, exp - 1023) * (1 - 2 * sign)
 # 3.14159
+
+
+# 바이너리 패턴 매칭
+# 바이너리에서 매우 중요한 법칙은 "애매하다면 필드의 타입을 명시하자"이다
+# 바이너리에서 사용 가능한 타입은 binary, bits, bitstring, bytes, float, integer, utf8, utf16, utf32이다
+# 또 조건을 추가할 수도 있다
+# - size(n) : 필드의 크기(비트 단위)
+# - signed, unsigned : 정수 필드에 대해 부호가 있는 것으로 해석할지 여부
+# - 엔디언 : big, little, native
+# 하이픈(-)을 사용해 여러 속성을 구분할 수 있다
+
+<< lenght::unsigned-integer-size(12), flags::bitstring-size(4) >> = data
+
+# 하지만 아무리 바디언리 파일이나 프로토콜 포맷 작업을 많이 하더라도, 이런 무시무시한 것을 가장 많이 사용하는 곳은 UTF-8 문자열 처리다
+
+# 바이너리로 문자열 처리하기
+# 리스트를 처리할 때는 리스트의 머리와 나머지 부분을 분리해 패턴 매칭할 수 있었다
+# 문자열이 저장된 바이너리에도 같은 방법을 사용할 수 있다
+# 이때는 문자열의 머리(첫 번째 자소)가 UTF-8 타입이고 나머지 부분도 여전히 바이너리임을 명시해야 한다
+
+defmodule Utf8 do
+  def each(str, func) when is_binary(str), do: _each(str, func)
+
+  defp _each(<< head :: utf8, tail :: binary >>, func) do
+    func.(head)
+    _each(tail, func)
+  end
+  defp _each(<<>>, _func), do: []
+end
+
+Utf8.each("∂og", fn char -> IO.puts(char) end)
+# 8706
+# 111
+# 103
+
+# 리스트와 마찬가지로 깔끔히 처리되었지만, 중요한 차이가 몇 가지 있다
+# 이 코드에선 매칭에 [head | tail] 대신 <<head :: utf8, tail :: binary>>를 사용했고,
+# 빈 리스트 [] 대신 빈 바이너리 <<>>로 재귀를 종료했다
