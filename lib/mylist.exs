@@ -95,7 +95,7 @@ defmodule MyList do
 
   def gpt_span(from, to) when from > to, do: raise(ArgumentError, message: "Invalid range: from > to")
   def gpt_span(to, to), do: [to]
-  def gpt_span(from, to), do: [from | span(from + 1, to)]
+  def gpt_span(from, to), do: [from | gpt_span(from + 1, to)]
 
   # from > to 일 경우는 span_desc 와 같은 내림차순 함수를 따로 만들어라고 제안
 
