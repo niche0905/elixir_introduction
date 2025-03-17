@@ -19,6 +19,23 @@ defmodule StringProblem do
   # 숫자 [+-*/] 숫자 형식의 문자 리스트를 받아 계산한 결과를 반환하는 함수를 만들어보아라
   # 각 숫자는 부호를 포함하지 않는다
   # caculate('123 + 27') # => 150
-  # 패스
 
+
+  def gpt_calculate(charlist) when is_list(charlist) do
+    # 작은따옴표 문자열을 일반 문자열로 변환
+    [num1, op, num2] = "#{charlist}" |> String.split()
+
+    # 문자열을 숫자로 변환
+    num1 = String.to_integer(num1)
+    num2 = String.to_integer(num2)
+
+    # 연산자에 따라 계산 수행
+    case op do
+      "+" -> num1 + num2
+      "-" -> num1 - num2
+      "*" -> num1 * num2
+      "/" -> num1 / num2
+      _ -> raise "Invalid operator"
+    end
+  end
 end
