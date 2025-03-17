@@ -83,3 +83,27 @@ for name <- ["cat", "dog"], do: String.upcase(name)
 # ["CAT", "DOG"]
 name
 # "Dave"
+
+
+# 컴프리헨션 문의 반환값
+# 지금까지 본 컴프리헨션 문은 리스트를 반환했으며, 리스트에 포함되는 값은 컴프리헨션 문의 각 반복에서 do 블록이 반환하는 값이었다
+# into: 파라미터를 사용해 이 동작을 바꿀 수 있다
+# into: 파라미터는 결과를 저장할 컬렉션을 받는다
+# 예를 들어 결과를 맵으로 받을 수도 있다
+for x <- ~w{cat dog}, into: %{}, do: {x, String.upcase(x)}
+# %{"cat" => "CAT", "dog" => "DOG"}
+
+# Map.new를 쓰면 의미가 더 명확하게 전달될 것이다
+for x <- ~w{cat dog}, into: Map.new, do: {x, String.upcase(x)}
+# %{"cat" => "CAT", "dog" => "DOG"}
+
+# 컬렉션이 꼭 비어 있을 필요는 없다다
+for x <- ~w{cat dog}, into: %{}, do: {x, String.upcase(x)}
+
+# into: 옵션은 Collectable 프로토콜을 구현한 값을 받는다
+# Collectable 프로토콜을 구현한 타입에는 리스트, 바이너리, 함수, 맵, 파일, 해시 딕셔너리, 해시 셋, IO 스트림 등이 있다
+# 따라서 다음과 같은 코드도 작성할 수 있다
+for x <- ~w{cat dog}, into: IO.stream(:stdio, :line), do: "<<#{x}>>\n"
+# <<cat>>
+# <<dog>>
+# %IO.Stream{device: :standard_io, raw: false, line_or_bytes: :line}
