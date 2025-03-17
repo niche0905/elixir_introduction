@@ -55,3 +55,83 @@ defmodule MyString do
       end
   end
 end
+
+
+# 연습문제
+# 문자열 안에 있는 각 문장에 capitalize 연산을 적용하는 함수를 작성해보아라
+# 각 문장은 온점(.)과 공백으로 끝난다
+# 문자열을 구성하는 각 문자의 대소문자 여부는 무작위다
+defmodule SetenceFormatter do
+  def capitalize_sentences(text) do
+    text
+    |> String.split(". ")  # 문장들을 분리
+    |> Enum.map(&String.capitalize/1)  # 각 문장의 첫 글자만 대문자로
+    |> Enum.join(". ")  # 다시 문장들을 합침
+    |> add_period()  # 마지막 문장에 온점 추가
+  end
+
+  defp add_period(text) do
+    if String.ends_with?(text, ".") do
+      text
+    else
+      text <> "."
+    end
+  end
+end
+
+# 매출 정보가 파일에 담겨 온다
+# 파일에는 id, ship_to, net_amount 값이 쉼표로 구분되어 있으며 내용은 다음과 같다
+# id,ship_to,net_amount
+# 123,:NC,100.00
+# 124,:OK,35.50
+# 125,:TX,24.00
+# 126,:TX,44.80
+# 127,:NC,25.00
+# 128,:MA,10.00
+# 129,:CA,102.00
+# 130,:NC,50.00
+# 파일을 읽고 파싱해 결과를 아래 orders 처럼 키워드 리스트의 형식으로 파싱하라
+# 각 필드는 정확한 타입으로 파싱해야 한다 (정수, 아톰, 실수)
+
+tax_rates = [NC: 0.075, TX: 0.08]
+# orders= [
+#   [ id: 123, ship_to: :NC, net_amount: 100.00],
+#   [ id: 124, ship_to: :OK, net_amount: 35.50],
+#   [ id: 125, ship_to: :TX, net_amount: 24.00],
+#   [ id: 126, ship_to: :TX, net_amount: 44.80],
+#   [ id: 127, ship_to: :NC, net_amount: 25.00],
+#   [ id: 128, ship_to: :MA, net_amount: 10.00],
+#   [ id: 129, ship_to: :CA, net_amount: 102.00],
+#   [ id: 130, ship_to: :NC, net_amount: 50.00]
+# ]
+
+for order <- orders do
+  tax = Keyword.get(tax_rates, order[:ship_to], 0.0) # 없는 키의 경우 0.0 반환
+  total_amount = order[:net_amount] * (1 + tax)
+  order ++ [total_amount: total_amount]
+end
+
+defmodule SalesParser do
+  def parse_file(filename) do
+    # 파일 읽기
+    {:ok, content} = File.read(filename)
+
+    # 파일 내용을 줄 단위로 분리하고, 첫 번째 줄(헤더)은 건너뜀
+    content
+    |> String.split("\n", trim: true)
+    |> tl()  # 첫 번째 줄을 건너뛰기 위해 tl/1 사용
+    |> Enum.map(&parse_row/1)
+  end
+
+  defp parse_row(row) do
+    [id_str, ship_to_str, net_amount_str] = String.split(row, ",")
+
+    # 파싱 및 타입 변환
+    id = String.to_integer(id_str)
+    ship_to = String.to_atom(ship_to_str)
+    net_amount = String.to_float(net_amount_str)
+
+    # 키워드 리스트로 반환
+    [id: id, ship_to: ship_to, net_amount: net_amount]
+  end
+end
