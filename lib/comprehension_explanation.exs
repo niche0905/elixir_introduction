@@ -52,3 +52,23 @@ reports = [ dallas: :hot, minneapolis: :cold, dc: :muggy, la: :smoggy ]
 [dallas: :hot, minneapolis: :cold, dc: :muggy, la: :smoggy]
 for {city, weather} <- reports, do: {weather, city}
 [hot: :dallas, cold: :minneapolis, muggy: :dc, smoggy: :la]
+
+
+# 비트스트링 컴프리헨션
+# 연속된 비트인 비트스트링(비트스트링 + 확장인 바이너리나 문자열) 역시 2진수의 컬렉션으로 생각할 수 있다
+# 따라서 비트스트링에도 컴프리헨션 문을 사용할 수 있다는 사실은 어쩌면 당연하다
+# 하지만 문법은 사문 다른 모습을 볼 수 있다
+for << ch <- "hello" >>, do: ch
+# ~c"hello" # 아마도 'hello'
+for << ch <- "hello" >>, do: <<ch>>
+# ["h", "e", "l", "l", "o"]
+
+# 제너레이터가 바이너리를 의미하는 <<>> 기호로 감싸져 있다
+# 첫 번째 컴프리헨션 문에서는 do 블럭이 각 문자에 대한 정수 코드를 반환하므로, 결과로 반환되는 리스트는 [1004, 101, 108, 108, 111]이다
+# IEx에서 이 리스트는 'hello' (~c"hello")로 표시된다
+# 두 번째 컴프리헨션 문은 각각의 정수 코드를 문자열로 바꿔 반환하므로 결과는 한 글자짜리 문자열들의 리스트가 된다
+
+# 제너레이터의 좌변이 패턴이므로 바이너리 패턴 매칭도 사용할 수 있다
+# 다음 코드는 문자열을 이루는 각 문자의 정수 코드를 8진수로 바꾼다다
+for << << b1::size(2), b2::size(3), b3::size(3) >> <- "hello">>, do: "0o#{b1}#{b2}#{b3}"
+# ["0o150", "0o145", "0o154", "0o154", "0o157"]
