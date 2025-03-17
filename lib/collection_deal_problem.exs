@@ -20,6 +20,15 @@ prime_list = fn n ->
                end
              end
 
+# gpt 개선 코드 (문제의 의도가 이것인지는 잘 모르겠음 아마 맞겠지 뭐)
+gpt_prime_list = fn n ->
+                   for num <- MyList.span(2, n), num == 2 or Enum.all?(MyList.span(2, max(2, trunc(:math.sqrt(num)))), fn denom -> rem(num, denom) != 0 end) do
+                     num
+                   end
+                 end
+
+IO.inspect(gpt_prime_list.(100))
+
 # Pragmatic Booshelf 출반사는 사무실이 텍사스주(TX)와 노스캐롤라잊나주(NC)에 있으며
 # 두 주로 배송되는 주문 건에는 소비세가 부가된다
 # 소비세율은 키워드 리스트로 주어진다
@@ -47,4 +56,11 @@ for order <- orders do
   else
     order ++ [total_amount: order[:net_amount]]
   end
+end
+
+# gpt 개선 사항
+for order <- orders do
+ tax = Keyword.get(tax_rates, order[:ship_to], 0.0) # 없는 키의 경우 0.0 반환
+ total_amount = order[:net_amount] * (1 + tax)
+ order ++ [total_amount: total_amount]
 end
